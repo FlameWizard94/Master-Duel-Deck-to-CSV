@@ -1,0 +1,7 @@
+Deck Name: Melodius
+Num cards: 41
+Num cards in extra: 15
+Main Deck:
+{'Droll & Lock Bird': 3, 'Herald of Orange Light': 2}
+Extra Deck
+{}
