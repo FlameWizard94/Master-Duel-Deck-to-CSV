@@ -32,7 +32,6 @@ def update_card_database():
             str(fetch_script_path)
         ]
         
-        # Run and redirect output
         with open(output_file, 'w', encoding='utf-8') as f:
             subprocess.run(
                 cmd,
