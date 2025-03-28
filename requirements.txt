@@ -1,0 +1,7 @@
+easyocr
+opencv-python
+pyautogui
+numpy
+mss
+pyperclip
+keyboard
