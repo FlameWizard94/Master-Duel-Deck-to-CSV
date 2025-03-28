@@ -2,7 +2,7 @@
 
 This is a script that looks at a deck in Master Duel and creates a .csv describing it.<br>
 I personally use it to manage decks in MS Excel. <br>
-The script will control Your mouse and keyboard. <br>
+The script will control your mouse and keyboard (You press **Enter** to stop the script).<br>
 The script will get the deck name.
 Then it will look at the amount of cards in the Main and Extra Deck. <br>
 Afterwards, the script looks at each card name, one by one, and counts how many of each card is in the deck.
@@ -11,11 +11,13 @@ This script can also make use of the Decorate YDK script: https://github.com/Han
 
 It's used to get card names with over 31 letters.<br>
 To use Decorate YDK with my script, just put my script and the the extracted **"DecorateYDK-main"** folder (The folder must be that exact name)
-in the same folder.
+in the same folder. <br>
+I recommend getting Decorate YDK, not only for my script, but for managing ydk files.
 
 ## Notes
 - Press **Enter** to stop the script.
 - The script only works if Master Duel is fullscreen in your primary monitor.
+- There may be misspelling, <br> E.g. Called by the Grave is seen as Caled by the Grave.
 
 
 ## Prerequisites
