@@ -1,7 +1,7 @@
-Deck Name: Melodius
-Num cards: 41
+Deck Name: Lab
+Num cards: 43
 Num cards in extra: 15
 Main Deck:
-{'Droll & Lock Bird': 3, 'Herald of Orange Light': 2}
+{'Labrynth Cooclock': 1, 'Maxx "C"': 2, 'Labrynth Stovie Torbie': 2, 'Ash Blossom & Joyous Spring': 3, 'Labrynth Chandraglier': 2, 'Arianna the Labrynth Servant': 3, 'Mulcharmy Fuwalos': 3, 'Arias the Labrynth Butler': 3, 'Lovely Labrynth of the Silver Castle': 1, 'Lady Labrynth of the Silver Castle': 1, 'Pot of Extravagance': 1, 'Labrynth Labyrinth': 1, 'Infinite Impermanence': 3, 'Trap Trick': 3, 'Dogmatika Punishment': 2, 'Welcome Labrynth': 2, 'Big Welcome Labrynth': 3, 'Transaction Rollback': 2, 'The Black Goat Laughs': 2, 'Dominus Impulse': 3}
 Extra Deck
-{}
+{"Elder Entity N'tss": 3, 'Garura, Wings of Resonant Life': 1, 'Berfomet the Mythical King of Phantom Beasts': 1, 'Golden Cloud Beast - Malong': 2, 'Chaos Angel': 3, 'Super Starslayer TY-PHON - Sky Crisis': 2, 'Muckraker From the Underworld': 2, 'Tri-Brigade Arms Bucephalus II': 1}

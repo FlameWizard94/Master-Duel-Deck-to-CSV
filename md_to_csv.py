@@ -1,3 +1,6 @@
+if __name__ == "__main__":
+    print(f'\nImporting Reader...\n')
+
 import csv
 import easyocr
 import cv2
@@ -46,13 +49,25 @@ def update_card_database():
 
     return True
 
-def find_closest_card(start):
-    with open('cardinfo.json', 'r', encoding='utf-8') as f:
+def find_closest_card(start, cardinfo):
+    with open(cardinfo, 'r', encoding='utf-8') as f:
         card_db = json.load(f)
-    
+
     all_card_names = [card['name'] for card in card_db['data']]
+    ll_check = ''
+
+    # Simple called by correction, not perfect, use bin tree?
+    if 'l' in start:
+        for x in range(len(start)):
+            if start[x] == 'l':
+                ll_check = start[:x] + 'l' + start[x:]
+                
+
+    
     for name in all_card_names:
         if name.startswith(start):
+            return name
+        elif ll_check and name.startswith(ll_check):
             return name
 
     return None
@@ -93,7 +108,7 @@ def RegionMSS(tuple):
     }
     return dict
 
-def CardName(reader, decorate_path):
+def CardName(reader, decorate_path, cardinfo):
     card_name_region = {
         'left': 635,
         'top': 151,
@@ -161,9 +176,11 @@ def CardName(reader, decorate_path):
         full_text = full_text.replace(variant, correct)    
     
     #print(f'{full_text}\n')
+    if full_text == 'Caled by the Grave':
+        return 'Called by the Grave'
     
-    if len(full_text) >= 31 and decorate_path.exists():
-        matched_card = find_closest_card(full_text)
+    if len(full_text) >= 31 and decorate_path.exists() and cardinfo.exists():
+        matched_card = find_closest_card(full_text, cardinfo)
         if matched_card:
             return matched_card
         
@@ -265,9 +282,12 @@ def NumExtra(reader):
 
 def CSV(main_deck, extra_deck, name):
     try:
-        with open(f"{name}.csv", "w", newline="") as f:
+        script_dir = Path(__file__).parent
+        csv_name = script_dir / 'decks' / f'{name}.csv'
+        Path(script_dir / 'decks').mkdir(parents=True, exist_ok=True)
+        with open(f"{csv_name}", "w", newline="") as f:
             writer = csv.writer(f)
-            writer.writerow(["Name", "Num Cards", "Handtrap", "Starter", "Extender", "2 Card", "Garnet"])  
+            writer.writerow(["Name", "Num Cards", "Handtrap", "Starter", "Extender", "Garnet"])  
             writer.writerows(main_deck.items())  
 
             writer.writerow([])
@@ -352,8 +372,8 @@ def main():
 
     easyocr_logger = logging.getLogger('easyocr')
     easyocr_logger.setLevel(logging.ERROR)
-    
     reader = easyocr.Reader(['en'], gpu=False)
+
     deck_name = DeckName()
     num_cards = NumCards(reader)
     num_extra = NumExtra(reader)
@@ -401,7 +421,7 @@ def main():
                 pyautogui.click(card_pos)
                 pyautogui.click(card_click)
                 time.sleep(0.5)
-                card = CardName(reader, decorate_path)
+                card = CardName(reader, decorate_path, cardinfo)
                 
                 pyautogui.click(deselect)
                 time.sleep(0.1)
@@ -441,7 +461,7 @@ def main():
                 pyautogui.click(card_pos)
                 pyautogui.click(card_click)
                 time.sleep(0.5)
-                card = CardName(reader, decorate_path)
+                card = CardName(reader, decorate_path, cardinfo)
                 pyautogui.click(deselect)
                 time.sleep(0.1)
 

@@ -34,7 +34,7 @@ I recommend getting Decorate YDK, not only for my script, but for managing ydk f
 
 ![deck_example](deck_example.png)
 
-1. Run the Python script "md_to_csv .py"
+1. Run the Python script "md_to_csv.py"
 
 ### With Decorate YDK
 1. You will be asked to Update the database (Unless a file **"cardinfo.json"** is in the same location as the script).<br>
