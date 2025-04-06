@@ -31,11 +31,13 @@ I recommend getting Decorate YDK, not only for my script, but for managing ydk f
 1. Run this command "pip install -r requirements.txt" 
 
 ## Usage
-1. Have the deck opened like this:
+1. Have the deck opened like this on your **primary monitor**:
 
 ![deck_example](deck_example.png)
 
 2. Run the Python script "md_to_csv.py"
+
+3. The .csv file will appear in a folder called **"decks"** where the script is.
 
 ### With Decorate YDK
 1. You will be asked to Update the database (Unless a file **"cardinfo.json"** is in the same location as the script).<br>
