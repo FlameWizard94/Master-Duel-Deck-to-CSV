@@ -280,6 +280,22 @@ def NumExtra(reader):
     
     return int(num_cards.strip())
 
+def TXT(main_deck, extra_deck, name):
+    script_dir = Path(__file__).parent
+    file_name = script_dir / 'decks' / f'{name}.txt'
+    Path(script_dir / 'decks').mkdir(parents=True, exist_ok=True)
+    with open(f'{file_name}', "w") as f:
+        f.write(f'Main Deck\n')
+        for card, num in main_deck.items():
+            f.write(f'{num}x {card}\n')
+
+        if extra_deck:
+            f.write(f'\nExtra Deck\n')
+            for card, num in extra_deck.items():
+                f.write(f'{num}x {card}\n')
+
+        f.close()
+
 def CSV(main_deck, extra_deck, name):
     try:
         script_dir = Path(__file__).parent
@@ -287,7 +303,7 @@ def CSV(main_deck, extra_deck, name):
         Path(script_dir / 'decks').mkdir(parents=True, exist_ok=True)
         with open(f"{csv_name}", "w", newline="") as f:
             writer = csv.writer(f)
-            writer.writerow(["Name", "Num Cards", "Handtrap", "Starter", "Extender", "Maxx C Counter", "Garnet"])  #Holy shit, Fuck Maxx C
+            writer.writerow(["Name", "Num Cards", "Handtrap", "Starter", "Extender", "Maxx C Counter", "Normal Summon", "Soft Garnet" "Garnet"])  #Holy shit, Fuck Maxx C
             writer.writerows(main_deck.items())  
 
             writer.writerow([])
@@ -297,6 +313,8 @@ def CSV(main_deck, extra_deck, name):
                 writer.writerow(["Extra Deck"]) 
                 writer.writerow(["Name", "Num Cards"])  
                 writer.writerows(extra_deck.items())  
+
+            f.close()
 
     except PermissionError:
         print(f"Error: Permission denied when trying to write to {name}.csv")
@@ -364,6 +382,15 @@ def main():
                 print(f'Please enter valid input.')
     elif decorate_path.exists():
         update_card_database()
+
+    '''text = ''
+
+    while text != '1' and text != '0':
+        print(f'\nDo you want a text file describing the deck as well?')
+        print(f'Enter 1 for yes, 0 for no\n')
+        text = input()
+        if text != '1' and text != '0':
+            print(f'Please enter valid input.')'''
 
     watcher = KeyboardWatcher()
     watcher.start(partial(Stop, stop_event))
@@ -483,6 +510,7 @@ def main():
 
         if not stop_event.is_set():
             CSV(main_deck, extra_deck, deck_name)
+            TXT(main_deck, extra_deck, deck_name)
         else:
             logs.append(f'\nTerminated Early\n')
 
