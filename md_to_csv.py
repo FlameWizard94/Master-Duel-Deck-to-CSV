@@ -21,6 +21,7 @@ from pathlib import Path
 import threading
 from functools import partial
 import logging
+from pywinauto import Application
 
 def update_card_database():
     script_dir = Path(__file__).parent
@@ -73,7 +74,7 @@ def find_closest_card(start, cardinfo):
     return None
 
 def DeckName():
-    pyautogui.leftClick(641, 134)
+    pyautogui.leftClick(641, 140)
     keyboard.press('ctrl')
     keyboard.press('c')
     time.sleep(0.1)  
@@ -112,7 +113,7 @@ def CardName(reader, decorate_path, cardinfo):
     card_name_region = {
         'left': 635,
         'top': 151,
-        'height': 50,
+        'height': 70,
         'width': 1065
     }
     DDD_VARIANTS = {
@@ -190,8 +191,8 @@ def NumCards(reader):
     num_cards_region = {
         'left': 721,
         'top': 177,
-        'height': 30,
-        'width': 35
+        'height': 50,
+        'width': 45
     }
     
     with warnings.catch_warnings():
@@ -237,8 +238,8 @@ def NumExtra(reader):
     num_in_extra = {
         'left': 721,
         'top': 748,
-        'height': 30,
-        'width': 35
+        'height': 40,
+        'width': 45
     }
     
     with warnings.catch_warnings():
@@ -348,7 +349,8 @@ class KeyboardWatcher:
         keyboard.unhook_all()
         self.listener_thread.join(timeout=0.1)
 
-def Stop(stop_event):
+def Stop(stop_event, window):
+    window.maximize()
     print("\nEMERGENCY STOP: Saving partial results...")
     print(f'Program Exiting...')
     stop_event.set()
@@ -392,10 +394,25 @@ def main():
         if text != '1' and text != '0':
             print(f'Please enter valid input.')'''
 
-    watcher = KeyboardWatcher()
-    watcher.start(partial(Stop, stop_event))
+    '''master_duel = pyautogui.getWindowsWithTitle("masterduel.exe")
+    master_duel.maximize()
+
+    #pyautogui.getActiveWindow().minimize()'''
+    window = pyautogui.getActiveWindow()
+    window.minimize()
 
     print(f'\nPress Enter to stop the script.\n')
+
+    app = Application(backend="win32").connect(title="masterduel")
+    master_duel = app.top_window()
+
+    master_duel.move_window(x=0, y=0) 
+    master_duel.minimize()
+    master_duel.set_focus()  
+    master_duel.maximize() 
+
+    watcher = KeyboardWatcher()
+    watcher.start(partial(Stop, stop_event, window))
 
     easyocr_logger = logging.getLogger('easyocr')
     easyocr_logger.setLevel(logging.ERROR)
@@ -525,7 +542,9 @@ def main():
     finally:
         # Cleanup when exiting (normally or via interrupt)
         watcher.end()
-    
+        window.activate()
+        window.maximize() 
+   
 
 if __name__ == "__main__":
     main()
