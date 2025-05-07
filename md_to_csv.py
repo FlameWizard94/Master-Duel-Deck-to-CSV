@@ -304,7 +304,7 @@ def CSV(main_deck, extra_deck, name):
         Path(script_dir / 'decks').mkdir(parents=True, exist_ok=True)
         with open(f"{csv_name}", "w", newline="") as f:
             writer = csv.writer(f)
-            writer.writerow(["Name", "Num Cards", "Handtrap", "Starter", "Extender", "Maxx C Counter", "Normal Summon", "Soft Garnet" "Garnet"])  #Holy shit, Fuck Maxx C
+            writer.writerow(["Name", "Num Cards", "Handtrap", "Starter", "Extender", "Maxx C Counter", "Normal Summon", "Soft Garnet", "Garnet"])  #Holy shit, Fuck Maxx C
             writer.writerows(main_deck.items())  
 
             writer.writerow([])
